@@ -68,7 +68,6 @@ function drawNewYear() {
 }
 
 function drawtext() {
-    console.log(click, clicked, ed);
     cow.forEach(function(c) {
         ctx.font = c.scaletext[c.scale];
         ctx.fillStyle = '#404040';
