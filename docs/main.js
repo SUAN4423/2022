@@ -18,6 +18,8 @@ var ctx = canvas.getContext("2d");
 canvas.addEventListener('mousemove', mouseMove, true);
 canvas.addEventListener('mousedown', mouseDown, true);
 canvas.addEventListener('mouseup', mouseUp, true);
+canvas.addEventListener('touchstart', touchStart, true);
+canvas.addEventListener('touchend', touchEnd, true);
 
 while (true) {
     ctx.font = size + 'px serif';
@@ -96,7 +98,7 @@ function drawtext() {
 function sayCow() {
     var sayNo = Math.floor(getRandom(4));
     cowSay[sayNo].currentTime = 0;
-    cowSay[sayNo].play() = 0;
+    cowSay[sayNo].play();
 }
 
 function checkClick(cows) {
@@ -110,6 +112,17 @@ function calcDistance(cows) {
 function mouseMove(event) {
     mouse.x = event.clientX - canvas.offsetLeft;
     mouse.y = event.clientY - canvas.offsetTop;
+}
+
+function touchStart(event) {
+    click = true;
+    mouse.x = event.changedTouches[0].pageX;
+    mouse.y = event.changedTouches[0].pageY;
+}
+
+function touchEnd(event) {
+    click = false;
+    ed = false;
 }
 
 function mouseDown(event) {
