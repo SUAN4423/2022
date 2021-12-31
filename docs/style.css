@@ -1,0 +1,11 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    background: #C0FFEE;
+    display: block;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
