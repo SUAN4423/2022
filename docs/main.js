@@ -4,6 +4,7 @@ var cow = new Array(new cow_tiger());
 var click = false;
 var clicked = false;
 var ed = false;
+var used = false;
 var size = 300;
 var cowSay = new Array(new Audio("say1.ogg"), new Audio("say2.ogg"), new Audio("say3.ogg"), new Audio("say4.ogg"));
 
@@ -51,6 +52,11 @@ function strWidth(str) {
 }
 
 function drawNewYear() {
+    ctx.arc(mouse.x, mouse.y, 10, 0 * Math.PI / 180, 360 * Math.PI / 180, false);
+    ctx.fillStyle = "rgba(255,0,0,0.8)";
+    ctx.fill();
+    ctx.stroke();
+
     if (cow.length == 32) {
         ctx.font = size + 'px serif';
         ctx.fillStyle = '#404040';
@@ -62,6 +68,7 @@ function drawNewYear() {
 }
 
 function drawtext() {
+    console.log(click, clicked, ed);
     cow.forEach(function(c) {
         ctx.font = c.scaletext[c.scale];
         ctx.fillStyle = '#404040';
@@ -93,6 +100,12 @@ function drawtext() {
         }
     });
     clicked = click;
+    if (used) {
+        click = false;
+        ed = false;
+        used = false;
+    }
+    used = true;
 }
 
 function sayCow() {
@@ -102,7 +115,7 @@ function sayCow() {
 }
 
 function checkClick(cows) {
-    return calcDistance(cows) < (30 + 15 * cows.scale);
+    return calcDistance(cows) < (30 + 30 * cows.scale);
 }
 
 function calcDistance(cows) {
@@ -115,23 +128,29 @@ function mouseMove(event) {
 }
 
 function touchStart(event) {
+    mouse.x = event.changedTouches[0].pageX - canvas.offsetLeft;
+    mouse.y = event.changedTouches[0].pageY - canvas.offsetTop;
     click = true;
-    mouse.x = event.changedTouches[0].pageX;
-    mouse.y = event.changedTouches[0].pageY;
+    used = false;
 }
 
 function touchEnd(event) {
-    click = false;
-    ed = false;
+    if (used) {
+        click = false;
+        ed = false;
+    }
+    used = false;
 }
 
 function mouseDown(event) {
     click = true;
+    used = true;
 }
 
 function mouseUp(event) {
     click = false;
     ed = false;
+    used = false;
 }
 
 function getRandom(scale) {
